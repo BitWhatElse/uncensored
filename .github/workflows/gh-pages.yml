@@ -22,7 +22,7 @@ jobs:
     - name: Rewrite base href
       uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
       with:
-        html_path: release/wwwroot/index.html
+        html_path: wwwroot/index.html
         base_href: /uncensored/
       
     - name: Deploy to Github Pages
