@@ -1,8 +1,5 @@
 name: gh-pages
 
-env:
-  PUBLISH_DIR: bin/Release/netstandard2.1/publish/wwwroot
-
 on: [push]
 
 jobs:
@@ -21,7 +18,7 @@ jobs:
     - name: Rewrite base href
       uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
       with:
-        html_path: ${{ env.PUBLISH_DIR }}/index.html
+        html_path: wwwroot/index.html
         base_href: /uncensored/
     - name: Deploy to Github Pages
       uses: JamesIves/github-pages-deploy-action@releases/v3
