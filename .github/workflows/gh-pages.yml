@@ -13,13 +13,19 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.301
+        
+    # publishes Blazor project to the release-folder
     - name: Publish with dotnet
       run: dotnet publish --configuration Release --output build
-    - name: Rewrite base href
-      uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
-      with:
-        html_path: uncensored/wwwroot/index.html
-        base_href: /uncensored/
+
+    # changes the base-tag in index.html from '/' to 'uncensored' to match GitHub Pages repository subdirectory
+    - name: Change base-tag in index.html from / to uncensored
+      run: sed -i 's/<base href="\/" \/>/<base href="\/uncensored\/" \/>/g' release/wwwroot/index.html
+    
+    # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
+    - name: Add .nojekyll file
+      run: touch release/wwwroot/.nojekyll
+      
     - name: Deploy to Github Pages
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
